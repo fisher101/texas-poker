@@ -9,7 +9,7 @@ on:
       - 'docker-compose.yml'
 
 jobs:
-  build-server:
+  build-push:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -18,7 +18,7 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
 
-      - name: Set up Docker Buildx
+      - name: Set up Buildx
         uses: docker/setup-buildx-action@v2
 
       - name: Login to Docker Hub
@@ -30,24 +30,19 @@ jobs:
       - name: Build and push server
         uses: docker/build-push-action@v4
         with:
-          context: .
+          context: server/
           file: server/Dockerfile
           platforms: linux/arm64
           push: true
           tags: |
-            yourdockerhub/texas-poker:latest
-            yourdockerhub/texas-poker:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/texas-poker:server
 
-  deploy:
-    needs: build-server
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to Server
-        uses: appleboy/ssh-action@v0.1.10
+      - name: Build and push client
+        uses: docker/build-push-action@v4
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            docker-compose pull
-            docker-compose up -d
+          context: client/
+          file: client/Dockerfile
+          platforms: linux/arm64
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/texas-poker:client
