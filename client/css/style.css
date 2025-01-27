@@ -1,0 +1,118 @@
+/* 基础样式 */
+* {
+    box-sizing: border-box;
+    font-family: 'Arial', '微软雅黑', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    background: #2c3e50;
+    color: #ecf0f1;
+}
+
+/* 面板布局 */
+.panel {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #34495e;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* 输入组件 */
+.input-group {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+input[type="text"], 
+input[type="number"] {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #3498db;
+    border-radius: 5px;
+    background: #2c3e50;
+    color: white;
+    font-size: 16px;
+}
+
+button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    background: #3498db;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button.danger {
+    background: #e74c3c;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* 牌面显示 */
+.cards-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.card {
+    width: 80px;
+    height: 112px;
+    background: #fff;
+    border-radius: 8px;
+    border: 2px solid #bdc3c7;
+    background-size: contain;
+}
+
+/* 移动端适配 */
+@media (max-width: 480px) {
+    .card {
+        width: 18vw;
+        height: 25vw;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    button {
+        padding: 15px;
+        font-size: 14px;
+    }
+}
+
+/* 游戏信息 */
+.section {
+    margin: 25px 0;
+    padding: 15px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 8px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.control-panel {
+    position: sticky;
+    bottom: 20px;
+    background: #2c3e50;
+}
