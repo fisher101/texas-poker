@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "build": "webpack --mode production",
+    "lint": "eslint src/**/*.js"
+  },
+  "dependencies": {
+    "socket.io-client": "^4.7.2"
+  }
+}
