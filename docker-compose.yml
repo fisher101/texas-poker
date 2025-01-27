@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  poker-server:
+    platform: linux/arm64
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    image: yourdockerhub/texas-poker:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - socket-data:/tmp/sockets
+    networks:
+      - poker-net
+
+  # 前端Nginx容器（可选）
+  poker-client:
+    platform: linux/arm64 
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./client/public:/usr/share/nginx/html
+    depends_on:
+      - poker-server
+    networks:
+      - poker-net
+
+networks:
+  poker-net:
+    driver: bridge
+
+volumes:
+  socket-data:
