@@ -11,19 +11,16 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-    volumes:
-      - socket-data:/tmp/sockets
     networks:
       - poker-net
 
-  # 前端Nginx容器（可选）
   poker-client:
-    platform: linux/arm64 
-    image: nginx:alpine
+    platform: linux/arm64
+    build:
+      context: .
+      dockerfile: client/Dockerfile  # 需补充前端Dockerfile
     ports:
       - "80:80"
-    volumes:
-      - ./client/public:/usr/share/nginx/html
     depends_on:
       - poker-server
     networks:
@@ -32,6 +29,3 @@ services:
 networks:
   poker-net:
     driver: bridge
-
-volumes:
-  socket-data:
