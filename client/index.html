@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>德州扑克在线版</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 登录界面 -->
+    <div id="loginPanel" class="panel">
+        <h1>欢迎来到德州扑克</h1>
+        <div class="input-group">
+            <input type="text" id="playerName" placeholder="请输入您的昵称">
+            <button onclick="handleLogin()">进入牌桌</button>
+        </div>
+    </div>
+
+    <!-- 游戏主界面 -->
+    <div id="gamePanel" class="panel hidden">
+        <!-- 公共牌区 -->
+        <div class="section">
+            <h2>公共牌</h2>
+            <div id="communityCards" class="cards-container"></div>
+        </div>
+
+        <!-- 玩家手牌 -->
+        <div class="section">
+            <h2>你的手牌</h2>
+            <div id="playerCards" class="cards-container"></div>
+        </div>
+
+        <!-- 操作区 -->
+        <div class="section control-panel">
+            <div class="info-row">
+                <span>当前底池：<span id="potAmount">0</span></span>
+                <span>剩余筹码：<span id="playerBalance">1000</span></span>
+            </div>
+            
+            <div class="action-buttons">
+                <input type="number" id="betValue" min="0" placeholder="输入金额">
+                <button onclick="sendAction('call')">跟注</button>
+                <button onclick="sendAction('raise')">加注</button>
+                <button onclick="sendAction('fold')" class="danger">弃牌</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- WebSocket 连接 -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
